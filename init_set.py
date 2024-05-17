@@ -1,5 +1,6 @@
 def init_set(studentID, pw, driver):
     from selenium import webdriver
+    from selenium.webdriver.chrome.service import Service
     from selenium.webdriver.chrome.options import Options
     from selenium.webdriver.common.by import By
     from selenium.webdriver.support.ui import WebDriverWait
@@ -20,7 +21,8 @@ def init_set(studentID, pw, driver):
     chrome_options.add_argument('--disable-gpu')  # Disable GPU acceleration
 
     # Initialize the Chrome driver
-    driver = webdriver.Chrome(executable_path=driver, options=chrome_options)
+    service = Service(executable_path=driver)
+    driver = webdriver.Chrome(service=service, options=chrome_options)
     wait = WebDriverWait(driver, 10)  # Wait up to 10 seconds
     driver.get("https://learning.hanyang.ac.kr/")
     uid = driver.find_element(By.ID, "uid")
